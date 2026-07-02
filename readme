@@ -1,0 +1,63 @@
+server/
+│
+├── config/
+│   └── db.js
+│
+├── models/
+│   ├── Student.js
+│   ├── Meal.js
+│   └── Attendance.js
+│
+├── controllers/
+│   ├── studentController.js
+│   ├── mealController.js
+│   └── attendanceController.js
+│
+├── routes/
+│   ├── studentRoutes.js
+│   ├── mealRoutes.js
+│   └── attendanceRoutes.js
+│
+├── middleware/
+│
+├── utils/
+│
+├── app.js
+└── server.js
+
+--------------------------
+client/
+│
+├── src/
+│
+├── pages/
+│   ├── Dashboard.jsx
+│   ├── Students.jsx
+│   ├── Meals.jsx
+│   ├── Attendance.jsx
+│
+├── components/
+│   ├── Navbar.jsx
+│   ├── Sidebar.jsx
+│   ├── StudentForm.jsx
+│   └── QRScanner.jsx
+│
+├── services/
+│
+└── App.jsx
+
+-------------
+📌 Development Order
+
+Ab hum isi sequence me chalenge:
+
+✅ Student Model
+✅ Attendance Model
+✅ Student CRUD API
+✅ Attendance API (with duplicate check)
+✅ React Student Page
+✅ React Attendance Page
+✅ QR Code Generation
+✅ QR Scanner
+
+Is tarah project simple, clean aur real mess me use hone layak banega.
