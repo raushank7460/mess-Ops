@@ -2,16 +2,13 @@ const Admin = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// ======================================
-// Register Admin
-// POST /api/auth/register
-// ======================================
+
 
 const registerAdmin = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Validation
+    
     if (!name || !email || !password) {
       return res.status(400).json({
         success: false,
@@ -19,7 +16,7 @@ const registerAdmin = async (req, res) => {
       });
     }
 
-    // Check existing admin
+   
     const existingAdmin = await Admin.findOne({ email });
 
     if (existingAdmin) {
@@ -29,10 +26,10 @@ const registerAdmin = async (req, res) => {
       });
     }
 
-    // Hash Password
+    
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create Admin
+    
     const admin = await Admin.create({
       name,
       email,
@@ -58,16 +55,13 @@ const registerAdmin = async (req, res) => {
   }
 };
 
-// ======================================
-// Login Admin
-// POST /api/auth/login
-// ======================================
+
 
 const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validation
+    
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -75,7 +69,7 @@ const loginAdmin = async (req, res) => {
       });
     }
 
-    // Find Admin
+    
     const admin = await Admin.findOne({ email }).select("+password");
 
     if (!admin) {
@@ -85,7 +79,7 @@ const loginAdmin = async (req, res) => {
       });
     }
 
-    // Check Active
+    
     if (!admin.isActive) {
       return res.status(403).json({
         success: false,
@@ -93,7 +87,7 @@ const loginAdmin = async (req, res) => {
       });
     }
 
-    // Compare Password
+    
     const isMatch = await bcrypt.compare(password, admin.password);
 
     if (!isMatch) {
@@ -103,11 +97,11 @@ const loginAdmin = async (req, res) => {
       });
     }
 
-    // Update Last Login
+    
     admin.lastLogin = new Date();
     await admin.save();
 
-    // JWT Token
+    
     const token = jwt.sign(
       {
         id: admin._id,

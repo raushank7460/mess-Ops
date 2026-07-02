@@ -1,9 +1,8 @@
 const Attendance = require("../models/attendanceModel");
 const Student = require("../models/studentModel");
 
-// =============================================
 // Helper: check if given month/year is the current month/year
-// =============================================
+
 const isCurrentMonthYear = (month, year) => {
   const now = new Date();
   const currentMonth = now.getMonth() + 1; // JS months are 0-indexed
@@ -11,9 +10,9 @@ const isCurrentMonthYear = (month, year) => {
   return Number(month) === currentMonth && Number(year) === currentYear;
 };
 
-// =============================================
+
 // Mark Attendance (Create/Update)
-// =============================================
+
 const markAttendance = async (req, res) => {
   try {
     const { studentId, day, month, year, status } = req.body;
@@ -39,7 +38,7 @@ const markAttendance = async (req, res) => {
       });
     }
 
-    // Restrict marking to the current month/year only
+    
     if (!isCurrentMonthYear(month, year)) {
       return res.status(400).json({
         success: false,
@@ -48,7 +47,7 @@ const markAttendance = async (req, res) => {
       });
     }
 
-    // Restrict marking to today or earlier in the current month (no future dates)
+
     const now = new Date();
     if (Number(day) > now.getDate()) {
       return res.status(400).json({
@@ -72,7 +71,7 @@ const markAttendance = async (req, res) => {
       year,
     });
 
-    // Create monthly document if not exists
+   
     if (!attendance) {
       attendance = await Attendance.create({
         student: studentId,
@@ -99,9 +98,8 @@ const markAttendance = async (req, res) => {
   }
 };
 
-// =============================================
 // Get Monthly Attendance of One Student
-// =============================================
+
 const getStudentAttendance = async (req, res) => {
   try {
 
@@ -150,9 +148,9 @@ const getStudentAttendance = async (req, res) => {
   }
 };
 
-// =============================================
+
 // Get Attendance of All Students
-// =============================================
+
 const getAllAttendance = async (req, res) => {
 
   try {
@@ -181,9 +179,8 @@ const getAllAttendance = async (req, res) => {
 
 };
 
-// =============================================
 // Update Attendance
-// =============================================
+
 const updateAttendance = async (req, res) => {
 
   try {
@@ -199,7 +196,7 @@ const updateAttendance = async (req, res) => {
       });
     }
 
-    // Restrict updates to the current month/year only
+
     if (!isCurrentMonthYear(attendance.month, attendance.year)) {
       return res.status(400).json({
         success: false,
@@ -208,7 +205,7 @@ const updateAttendance = async (req, res) => {
       });
     }
 
-    // Restrict to today or earlier in the current month (no future dates)
+
     const now = new Date();
     if (Number(day) > now.getDate()) {
       return res.status(400).json({
@@ -238,9 +235,9 @@ const updateAttendance = async (req, res) => {
 
 };
 
-// =============================================
+
 // Delete Monthly Attendance
-// =============================================
+
 const deleteAttendance = async (req, res) => {
 
   try {
@@ -254,7 +251,7 @@ const deleteAttendance = async (req, res) => {
       });
     }
 
-    // Restrict deletion to the current month/year only
+
     if (!isCurrentMonthYear(attendance.month, attendance.year)) {
       return res.status(400).json({
         success: false,
@@ -281,9 +278,9 @@ const deleteAttendance = async (req, res) => {
 
 };
 
-// =============================================
+
 // Monthly Summary
-// =============================================
+
 const monthlySummary = async (req, res) => {
 
   try {
@@ -295,7 +292,7 @@ const monthlySummary = async (req, res) => {
       year,
     }).populate("student");
 
-    // Skip orphaned records where the referenced student no longer exists
+   
     const validAttendance = attendanceList.filter((item) => item.student);
 
     const summary = validAttendance.map((item) => {

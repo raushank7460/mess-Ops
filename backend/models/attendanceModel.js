@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 
 const attendanceSchema = new mongoose.Schema(
   {
-    // Student Reference
+    
     student: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Student",
       required: true,
     },
 
-    // Month (1-12)
+    
     month: {
       type: Number,
       required: true,
@@ -17,13 +17,13 @@ const attendanceSchema = new mongoose.Schema(
       max: 12,
     },
 
-    // Year
+    
     year: {
       type: Number,
       required: true,
     },
 
-    // Attendance of every day
+    
     attendance: {
       "1": {
         type: String,
@@ -187,7 +187,7 @@ const attendanceSchema = new mongoose.Schema(
   }
 );
 
-// One attendance document per student per month
+
 attendanceSchema.index(
   {
     student: 1,

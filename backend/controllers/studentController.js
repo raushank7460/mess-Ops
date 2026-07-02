@@ -1,9 +1,5 @@
 const Student = require("../models/studentModel");
 
-// ========================================
-// Add Student
-// POST /api/students
-// ========================================
 const addStudent = async (req, res) => {
   try {
     const { name, rollNumber, roomNumber, course, phone } = req.body;
@@ -15,7 +11,7 @@ const addStudent = async (req, res) => {
       });
     }
 
-    // Check duplicate roll number
+    
     const existingStudent = await Student.findOne({ rollNumber });
 
     if (existingStudent) {
@@ -49,10 +45,6 @@ const addStudent = async (req, res) => {
   }
 };
 
-// ========================================
-// Get All Students
-// GET /api/students
-// ========================================
 const getStudents = async (req, res) => {
 
   try {
@@ -78,10 +70,6 @@ const getStudents = async (req, res) => {
 
 };
 
-// ========================================
-// Get Student By ID
-// GET /api/students/:id
-// ========================================
 const getStudentById = async (req, res) => {
 
   try {
@@ -111,10 +99,7 @@ const getStudentById = async (req, res) => {
 
 };
 
-// ========================================
-// Update Student
-// PUT /api/students/:id
-// ========================================
+
 const updateStudent = async (req, res) => {
 
   try {
@@ -128,7 +113,7 @@ const updateStudent = async (req, res) => {
       });
     }
 
-    // Check duplicate roll number if changed
+   
     if (
       req.body.rollNumber &&
       req.body.rollNumber !== student.rollNumber
@@ -171,10 +156,6 @@ const updateStudent = async (req, res) => {
 
 };
 
-// ========================================
-// Delete Student
-// DELETE /api/students/:id
-// ========================================
 const deleteStudent = async (req, res) => {
 
   try {
@@ -206,10 +187,6 @@ const deleteStudent = async (req, res) => {
 
 };
 
-// ========================================
-// Search Students
-// GET /api/students/search?keyword=rahul
-// ========================================
 const searchStudents = async (req, res) => {
 
   try {

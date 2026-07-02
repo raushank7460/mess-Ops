@@ -26,7 +26,7 @@ const adminSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
       minlength: 6,
-      select: false, // Password won't be returned by default
+      select: false, 
     },
 
     role: {
